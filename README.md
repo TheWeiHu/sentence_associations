@@ -1,6 +1,6 @@
 # Project Objective
 
-In this project, I propose an approach to test for biases in pretrained language models used in NLP. Extending on Dr. Victor Swift's [research on word embeddings](https://arxiv.org/abs/2002.10284), and using [sentence completion survey data](http://openpsychometrics.org/_rawdata/SENTANCES1.zip), I set out to examine whether these models "associate" more strongly with certain personality types.
+In this project, I propose an approach to test for biases in pretrained language models used in NLP. Extending on Dr. Victor Swift's [research on word embeddings](https://arxiv.org/abs/2002.10284), and using [sentence completion survey data](http://openpsychometrics.org/_rawdata/SENTANCES1.zip), I set out to examine whether these models "associate" more with certain personality types.
 
 # Methodology
 
@@ -11,19 +11,19 @@ Three assumptions are being made in this project:
     - At one point, it was the [13th most-used psychological instrument](https://doi.org/10.1080/0091651X.1965.10120175).
 - Further, I assume the [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity) of two sentence embeddings is a good measure for how closely the model associates the two concepts.
     - For example, if the embedding for the stem "One should never trust..." is similar to that of "pirates," it would suggest the model considers "pirates" to be untrustworthy.
-- Lastly, I assume a modified form of this test, in which respondants describe their inclinations towards other respondents' completions rather than providing their own, has similar validity.
+- Lastly, I assume that a modified form of this test, in which respondants quantify their inclinations towards other respondents' completions rather than providing their own, has similar validity.
 
-In the project, sentence embeddings are generated using:
+Sentence embeddings are generated using:
 - the BERT Base model, through the ```Bert-As-Service``` client.
 - the Distil Roberta Base model, through UKPLab's ```sentence-transformers``` package.
 
-From there, we calculate the cosine similarity between the embeddings for each stem and its corresponding respondent completions. Since, we have big five personality score for each respondent, we can apply statistical methods to examine whether the model prefers respondents with certain types of personality.
+From there, we calculate the cosine similarity between the embeddings for each stem and each respondent's completion. Since we have big five personality scores for each respondent, we can apply statistical methods to examine whether the model prefers respondents with certain types of personality.
 
 For example, if the model always gives high scores to responses from extroverted people and low ones to responses from neurotic people, it would be suggestive of a bias.
 
 # Development
 
-I did not include the original dataset in this repository, since I have not gotten the authors' permissions. Download the original dataset from [HERE](http://openpsychometrics.org/_rawdata/SENTANCES1.zip), and unzip it in the root directory.
+I did not include the original dataset in the repository, since I have not gotten the authors' permissions. Download the original dataset from [HERE](http://openpsychometrics.org/_rawdata/SENTANCES1.zip), and unzip it in the root directory.
 
 Be sure to:
 - use a ```Python``` version between ```3.5``` and ```3.8```, which allows us to:
@@ -54,7 +54,7 @@ To further explore, it would be worthwhile to consider:
     - RNN-based models, Doc2Vec, InferSent
     - other flavors of Transformers
 - looking into [other approaches for extracting embeddings](https://mccormickml.com/2019/05/14/BERT-word-embeddings-tutorial/)
-    - for example, ```Bert-As-Service``` just uses the output from the second last layer of the BERT model, which is arbitrary (though, I've tested to make sure the embedding is fairly reasonble, e.g. queen - female + male ~ king)
-    - alternatively, we could have have: concatenated the last four layers, summed the last three layers, etc.
+    - for example, ```Bert-As-Service``` just uses the output from the second last layer of the BERT model, which is arbitrary (though I've tested to make sure the embedding is fairly reasonble, e.g. queen - female + male ~ king)
+    - alternatively, we could have: concatenated the last four layers, summed the last three layers, etc.
 
-In any case, this pilot project introdduces a feasible method for identifying models with strong personalities preferences.
+In any case, this pilot project introduces a feasible method for identifying models with strong personalities preferences.
