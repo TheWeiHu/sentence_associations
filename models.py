@@ -6,6 +6,7 @@ from sentence_transformers import SentenceTransformer
 MODELS = {
     "distil_roberta": SentenceTransformer("paraphrase-distilroberta-base-v1"),
     "bert": BertClient(),
+    "siamese": SentenceTransformer("bert-base-nli-mean-tokens"),
 }
 
 
@@ -22,3 +23,9 @@ class TransformerModel:
         # preserve only the float value
         return score[0][0]
 
+
+if __name__ == "__main__":
+    # the bert-as-service model's embeddings for "life" and "life " differ meaningfully, which suggests it may not be our best choice of model.
+    for model in MODELS:
+        m = TransformerModel(model)
+        print(model, m.get_similarity("life", "life "))

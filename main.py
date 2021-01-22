@@ -1,19 +1,8 @@
 import pandas as pd
 import functools
 
-from config import Config
 from models import TransformerModel, MODELS
-
-
-def get_valid_rows(row):
-    # for simplicity, we only consider responses that:
-    # 1) contain only legitimate answers (which would need at least 3 characters)
-    # 2) are complete (answered all 5 prompts)
-    for p in Config.prompts:
-        entry = row[p]
-        if not isinstance(entry, str) or len(entry) < 3:
-            return False
-    return True
+from utils import PROMPTS, get_valid_rows
 
 
 def main():
@@ -22,8 +11,8 @@ def main():
         # filters out incomplete rows / rows with illegitimate responses
         df = df[df.apply(get_valid_rows, axis=1)]
         model = TransformerModel(model_name)
-       
-        for id, prompt in Config.prompts.items():
+
+        for id, prompt in PROMPTS.items():
             # probably unnecessary (implicitly converted when using uncased BERT)
             df[id] = df[id].str.lower()
             # functools.partial returns a function with one of the argument specified
