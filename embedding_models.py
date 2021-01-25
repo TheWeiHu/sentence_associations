@@ -1,3 +1,8 @@
+"""
+These models take in a sentence and produces an embedding vector.
+"""
+
+
 from sklearn.metrics.pairwise import cosine_similarity
 from bert_serving.client import BertClient
 from sentence_transformers import SentenceTransformer
@@ -10,7 +15,7 @@ MODELS = {
 }
 
 
-class TransformerModel:
+class EmbeddingModel:
     def __init__(self, model="bert"):
         self.model = MODELS[model]
 

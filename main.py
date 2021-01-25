@@ -1,7 +1,7 @@
 import pandas as pd
 import functools
 
-from models import TransformerModel, MODELS
+from embedding_models import EmbeddingModel, MODELS
 from utils import PROMPTS, get_valid_rows
 
 
@@ -10,7 +10,7 @@ def main():
         df = pd.read_csv("SENTANCES1/data1.csv")
         # filters out incomplete rows / rows with illegitimate responses
         df = df[df.apply(get_valid_rows, axis=1)]
-        model = TransformerModel(model_name)
+        model = EmbeddingModel(model_name)
 
         for id, prompt in PROMPTS.items():
             # probably unnecessary (implicitly converted when using uncased BERT)
