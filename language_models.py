@@ -35,8 +35,8 @@ class LanguageModel:
 
 
 if __name__ == "__main__":
-    from utils import PROMPTS
+    from utils import KAREN_PROMPTS
 
     model = LanguageModel()
-    for _, v in PROMPTS.items():
+    for _, v in KAREN_PROMPTS.items():
         print(model.complete_sentence(v))

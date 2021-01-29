@@ -43,8 +43,19 @@ def calculate_overlap(s1, s2):
     return float(total / len(s2))
 
 
+KAREN_PROMPTS = {
+    "Love1": "When they talked about sex, I",
+    "Love2": "After he made love to her, he",
+    "Love3": "My sexual desires",
+    "Love4": "Sexual intercourse",
+    "Sex1": "A person who fall in love",
+    "Sex2": "Love to me is",
+    "Sex3": "When I think of marriage",
+    "Sex4": "After a year of marriage, they",
+}
+
 TRAITS = ["EX", "NR", "OP", "AG", "CN"]
-PROMPTS = {
+OPEN_PROMPTS = {
     "S1": "One should never trust",
     "S2": "The good life",
     "S3": "Brothers",
@@ -57,8 +68,8 @@ PROMPTS = {
 def get_valid_rows(row):
     # for simplicity, we only consider responses that:
     # 1) contain only legitimate answers (which would need at least 3 characters)
-    # 2) are complete (answered all 5 prompts)
-    for p in PROMPTS:
+    # 2) are complete (answered all 5 OPEN_PROMPTS)
+    for p in OPEN_PROMPTS:
         entry = row[p]
         if not isinstance(entry, str) or len(entry) < 3:
             return False

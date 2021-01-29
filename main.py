@@ -2,7 +2,7 @@ import pandas as pd
 import functools
 
 from embedding_models import EmbeddingModel, MODELS
-from utils import PROMPTS, get_valid_rows
+from utils import OPEN_PROMPTS, get_valid_rows
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
         df = df[df.apply(get_valid_rows, axis=1)]
         model = EmbeddingModel(model_name)
 
-        for id, prompt in PROMPTS.items():
+        for id, prompt in OPEN_PROMPTS.items():
             # probably unnecessary (implicitly converted when using uncased BERT)
             df[id] = df[id].str.lower()
             # functools.partial returns a function with one of the argument specified
